@@ -120,6 +120,10 @@ public class Player implements Drawable {
         return position;
     }
 
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
     public void dispose(){
         body.destroyFixture(collider);
         level.getWorld().destroyBody(body);

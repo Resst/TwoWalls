@@ -11,8 +11,9 @@ public class PlayerAssets extends Assets {
     //All Textures
     @Asset(type = Texture.class, folder = TEXTURES_FOLDER + PLAYER_FOLDER)
     public static final String
-            BASE_TEXTURE = "PlayerGray.png",
-            UFO_TEXTURE = "PlayerUFO.png";
+            BASE = "PlayerGray.png",
+            UFO = "PlayerUFO.png",
+            MAGMA = "PlayerMagma.png";
 
     public PlayerAssets(AssetManager manager) {
         super(manager, "PlayerTexture");
@@ -25,7 +26,7 @@ public class PlayerAssets extends Assets {
 
     @Override
     protected String getBaseTexture() {
-        return TEXTURES_FOLDER + getFolder() + BASE_TEXTURE;
+        return TEXTURES_FOLDER + getFolder() + BASE;
     }
 
 

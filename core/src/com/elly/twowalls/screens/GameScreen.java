@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.elly.twowalls.GameClass;
@@ -30,7 +31,7 @@ public class GameScreen implements Screen {
     public GameScreen(GameClass game) {
         this.game = game;
         gamecam = new OrthographicCamera();
-        viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, gamecam);
+        viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, gamecam);
         gamecam.position.set(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2, 0);
         hud = new Hud(this);
     }

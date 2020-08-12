@@ -2,8 +2,10 @@ package com.elly.twowalls.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -26,20 +28,27 @@ public abstract class Level implements Drawable {
     public final float borderSize = Constants.CELL_SIZE / 2;
     public float leftBorder, rightBorder, gameField;
     private boolean hasBorder = true;
+
     private GameScreen screen;
     private Player player;
     private Array<Obstacle> obstacles;
     private World world;
+
     protected float lastY = Constants.WORLD_HEIGHT * 2;
     protected ObstacleCreator obstacleCreator;
+
     private int score = 0;
     private Preferences prefs;
+
     private boolean gameOver = false;
+
+    private OrthographicCamera camera;
 
     //presets of complex obstacles
     protected Presets presets;
 
     private Texture backgroundTexture;
+    private TextureRegion backgroundRegion;
 
     public Level(GameScreen screen, boolean hasBorder) {
         //coordinates of borders
@@ -54,7 +63,14 @@ public abstract class Level implements Drawable {
         gameField = rightBorder - leftBorder - borderSize;
 
         this.screen = screen;
+        camera = screen.getGamecam();
+
         backgroundTexture = screen.getGame().getManager().background.getTexture();
+        backgroundTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        backgroundRegion = new TextureRegion(backgroundTexture);
+        backgroundRegion.setRegion(0, (int) (camera.viewportHeight - camera.position.y) - 1,
+                ((int) camera.viewportWidth) + 1, ((int) camera.viewportHeight) + 2);
+
         screen.getDrawQueue().add(this, 20);
         world = new World(Vector2.Zero, true);
         world.setContactListener(new BodyContactListener());
@@ -69,7 +85,6 @@ public abstract class Level implements Drawable {
 
     public abstract void createObstacles();
 
-    private float bgY1 = 0, bgY2 = Constants.WORLD_HEIGHT;
     public void update(float dt) {
 
         //in case of death
@@ -87,10 +102,8 @@ public abstract class Level implements Drawable {
         }
 
         //for moving background
-        if (bgY1 + Constants.WORLD_HEIGHT < screen.getGamecam().position.y - screen.getGamecam().viewportHeight / 2) {
-            bgY1 = bgY2;
-            bgY2 += Constants.WORLD_HEIGHT;
-        }
+        if (!player.isDestroyed())
+            backgroundRegion.scroll(0, -player.speed / camera.viewportHeight * dt);
 
         //world step for checking collisions
         world.step(1, 5, 5);
@@ -101,8 +114,7 @@ public abstract class Level implements Drawable {
 
     @Override
     public void draw(SpriteBatch batch) {
-        batch.draw(backgroundTexture, 0, bgY1, Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
-        batch.draw(backgroundTexture, 0, bgY2, Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
+        batch.draw(backgroundRegion, 0, camera.position.y - camera.viewportHeight / 2);
     }
 
 
@@ -210,18 +222,16 @@ public abstract class Level implements Drawable {
         removeAllObstacles();
         player.reset();
         lastY = Constants.WORLD_HEIGHT * 2;
-        screen.getGamecam().position.set(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2, 0);
+        camera.position.set(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2, 0);
         createObstacles();
         score = 0;
-        bgY2 = Constants.WORLD_HEIGHT;
-        bgY1 = 0;
     }
 
     public void gameOver() {
         gameOver = true;
     }
 
-    public void dispose(){
+    public void dispose() {
         player.dispose();
         removeAllObstacles();
         world.dispose();
