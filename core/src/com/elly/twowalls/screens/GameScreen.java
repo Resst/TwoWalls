@@ -34,6 +34,7 @@ public class GameScreen implements Screen {
         viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, gamecam);
         gamecam.position.set(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2, 0);
         hud = new Hud(this);
+        setLevel(new Level1(this));
     }
 
     @Override
@@ -46,12 +47,15 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         if (!paused) {
             update(delta);
+
             Gdx.gl.glClearColor(9 / 256f, 102 / 256f, 28 / 256f, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
             game.getBatch().setProjectionMatrix(gamecam.combined);
             game.getBatch().begin();
             draw(game.getBatch());
             game.getBatch().end();
+
             b2dr.render(level.getWorld(), gamecam.combined);
 
             hud.draw(game.getBatch());
@@ -81,6 +85,7 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
+        level.resize();
     }
 
     @Override

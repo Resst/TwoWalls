@@ -1,16 +1,14 @@
 package com.elly.twowalls.obstacles;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.elly.twowalls.levels.Level;
 import com.elly.twowalls.obstacles.tools.motions.Motion;
-import com.elly.twowalls.obstacles.tools.ObstacleType;
-import com.elly.twowalls.obstacles.triangles.Triangle;
+import com.elly.twowalls.obstacles.tools.ObstacleShape;
 import com.elly.twowalls.tools.Constants;
 
-public abstract class MovingObstacle extends Obstacle {
+public class MovingObstacle extends Obstacle {
 
     protected Array<Array<Motion>> motions = new Array<>();
     protected boolean stopped;
@@ -20,7 +18,7 @@ public abstract class MovingObstacle extends Obstacle {
     protected boolean triggered = false;
 
 
-    public MovingObstacle(Level level, Vector2 position, Vector2 size, ObstacleType type) {
+    public MovingObstacle(Level level, Vector2 position, Vector2 size, ObstacleShape type) {
         super(level, position, size, type);
         setTriggerRange(triggerRange);
     }
@@ -103,6 +101,11 @@ public abstract class MovingObstacle extends Obstacle {
         return this;
     }
 
+    public MovingObstacle scaleSize(float scalar){
+        super.scaleSize(scalar);
+        return this;
+    }
+
     @Override
     public MovingObstacle setOrigin(Vector2 origin) {
         super.setOrigin(origin);
@@ -125,7 +128,7 @@ public abstract class MovingObstacle extends Obstacle {
     }
 
     @Override
-    public MovingObstacle setShape(ObstacleType type) {
+    public MovingObstacle setShape(ObstacleShape type) {
         super.setShape(type);
         return this;
     }

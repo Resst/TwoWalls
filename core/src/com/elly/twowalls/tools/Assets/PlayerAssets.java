@@ -16,7 +16,7 @@ public class PlayerAssets extends Assets {
             MAGMA = "PlayerMagma.png";
 
     public PlayerAssets(AssetManager manager) {
-        super(manager, "PlayerTexture");
+        super(manager);
     }
 
     @Override
@@ -24,10 +24,6 @@ public class PlayerAssets extends Assets {
         return PLAYER_FOLDER;
     }
 
-    @Override
-    protected String getBaseTexture() {
-        return TEXTURES_FOLDER + getFolder() + BASE;
-    }
 
 
 }

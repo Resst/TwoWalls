@@ -1,5 +1,8 @@
 package com.elly.twowalls.levels;
 
+import com.badlogic.gdx.graphics.Color;
+import com.elly.twowalls.obstacles.tools.ObstacleShape;
+import com.elly.twowalls.obstacles.tools.motions.Rotation;
 import com.elly.twowalls.screens.GameScreen;
 import com.elly.twowalls.tools.Constants;
 
@@ -17,20 +20,33 @@ public class Level1 extends Level {
     @Override
     public void createObstacles() {
         Random rand = new Random();
+        creator.space(Constants.WORLD_HEIGHT);
         for (int i = 0; i < 1000; i++) {
-            switch (rand.nextInt(3)) {
-                case 0:
-                    rotatingTriangle(rand.nextBoolean());
-                    break;
-                case 1:
-                    movingTriangle(rand.nextBoolean());
-                    break;
-                case 2:
-                    staticTriangle(rand.nextBoolean());
-                    break;
-            }
-            space();
-            space();
+//            switch (rand.nextInt(6)) {
+//                case 0:
+//                    creator.rotatingTriangle(rand.nextBoolean());
+//                    break;
+//                case 1:
+//                    creator.movingTriangle(rand.nextBoolean());
+//                    break;
+//                case 2:
+//                    creator.addTriangle(rand.nextBoolean()).setShape(ObstacleShape.CIRCLE);
+//                    break;
+//                case 3:
+//                case 4:
+//                case 5:
+//                    presets.playerLikeSquare(rand.nextBoolean()).setColor(0,1,0);
+//
+//            }
+
+            creator.addCircle(rand.nextBoolean()).scaleSize(2.3f)
+                    .setOriginPercents(.5f, .5f)
+                    .addMotion(new Rotation(1, -180))
+                    .setTriggerRange(Constants.WORLD_HEIGHT * 2)
+                    .setColor(0,0,1);
+
+            creator.space();
+            creator.space();
         }
     }
 }

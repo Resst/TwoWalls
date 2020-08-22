@@ -7,26 +7,22 @@ public class BackgroundAssets extends Assets {
 
 
     public BackgroundAssets(AssetManager manager) {
-        super(manager, "BackgroundTexture");
+        super(manager);
     }
 
 
     //Levels texture folder
-    private static final String Level_FOLDER = "Level/";
+    private static final String FOLDER = "Level/";
 
     //All textures
-    @Asset(type = Texture.class, folder = TEXTURES_FOLDER + Level_FOLDER)
+    @Asset(type = Texture.class, folder = TEXTURES_FOLDER + FOLDER)
     public static final String
             BASE_TEXTURE = "PlusesBG.png";
 
 
     @Override
     protected String getFolder() {
-        return Level_FOLDER;
+        return FOLDER;
     }
 
-    @Override
-    protected String getBaseTexture() {
-        return TEXTURES_FOLDER + getFolder() + BASE_TEXTURE;
-    }
 }

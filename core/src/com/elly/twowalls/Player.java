@@ -45,7 +45,8 @@ public class Player implements Drawable {
         collider = ColliderCreator.createBoxCollider(body, 0, 0, size / 2);
         collider.setUserData(this);
 
-        playerSprite = new Sprite(level.getScreen().getGame().getManager().player.getTexture());
+        //TODO remake this
+        playerSprite = new Sprite(level.getScreen().getGame().getManager().player.getTexture(PlayerAssets.MAGMA));
         playerSprite.setBounds(position.x, position.y, size, size);
         playerSprite.setOrigin(size / 2, size / 2);//Sprite should rotate around center
 

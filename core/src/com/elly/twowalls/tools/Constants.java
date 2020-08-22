@@ -2,7 +2,7 @@ package com.elly.twowalls.tools;
 
 public class Constants {
     public static final float
-            CELL_SIZE = 160,
+            CELL_SIZE = 200,
             WIDTH_CELLS = 5,
             HEIGHT_CELLS = 8,
             WORLD_WIDTH = CELL_SIZE * WIDTH_CELLS,

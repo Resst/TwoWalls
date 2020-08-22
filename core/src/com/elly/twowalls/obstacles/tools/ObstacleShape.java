@@ -1,6 +1,6 @@
 package com.elly.twowalls.obstacles.tools;
 
-public enum ObstacleType {
+public enum ObstacleShape {
     TRIANGLE,
     CIRCLE,
     SQUARE,

@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.elly.twowalls.screens.UI.ClickableImage;
 import com.elly.twowalls.tools.Constants;
 import com.elly.twowalls.tools.Drawable;
 
@@ -21,7 +20,6 @@ public class Hud implements Drawable {
     private Label scoreLabel;
     private Label bestScoreLabel;
     private GameScreen screen;
-    private ClickableImage toLevelChooseScreen;
 
 
     public Hud(GameScreen screen){
@@ -64,14 +62,6 @@ public class Hud implements Drawable {
     }
 
     private void initButtons(){
-        toLevelChooseScreen = new ClickableImage(screen.getGame().getManager().square.getTexture()) {
-            @Override
-            public void onClick() {
-                screen.getGame().setScreen(screen.getGame().getLevelChooseScreen());
-                screen.dispose();
-            }
-        };
-        stage.addActor(toLevelChooseScreen);
     }
 
     public Stage getStage(){

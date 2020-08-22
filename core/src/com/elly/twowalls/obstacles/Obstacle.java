@@ -12,18 +12,18 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.elly.twowalls.levels.Level;
-import com.elly.twowalls.obstacles.tools.ObstacleType;
+import com.elly.twowalls.obstacles.tools.ObstacleShape;
+import com.elly.twowalls.tools.Assets.ObstacleAssets;
 import com.elly.twowalls.tools.ColliderCreator;
 import com.elly.twowalls.tools.Constants;
 import com.elly.twowalls.tools.Drawable;
-import com.elly.twowalls.tools.MyAssetManager;
 
-public abstract class Obstacle implements Drawable {
+public class Obstacle implements Drawable {
 
     protected Vector2 position;
     protected Vector2 size;
     protected Vector2[] vertices;
-    private ObstacleType type;
+    private ObstacleShape type;
     public static final float standardSize = Constants.CELL_SIZE;
     private float maxSize = 2 * standardSize;
 
@@ -33,6 +33,8 @@ public abstract class Obstacle implements Drawable {
     private boolean destroyed = false;
 
     protected Level level;
+
+    protected ObstacleAssets assets;
 
     protected Sprite sprite;
     protected Color color;
@@ -45,13 +47,16 @@ public abstract class Obstacle implements Drawable {
     protected Shape shape;
     private Vector2 bodyPosition;
 
-    public Obstacle(Level level, Vector2 position, Vector2 size, ObstacleType type) {
+    public Obstacle(Level level, Vector2 position, Vector2 size, ObstacleShape type) {
         this.level = level;
         this.position = position;
         this.size = size;
         this.type = type;
 
+        assets = level.getScreen().getGame().getManager().obstacles;
+
         color = new Color(1, 1, 1, 1);
+        sprite = new Sprite();
 
         setShape(type);
         level.getScreen().getDrawQueue().add(this, layer);
@@ -59,12 +64,9 @@ public abstract class Obstacle implements Drawable {
 
     }
 
-    //for instance: sprite = new Sprite(bgAssets.getScreen().getGame().getManager().staticTriangle.getStaticTriangle())
-    protected abstract Obstacle setSprite();
 
 
     protected void appear() {
-        setSprite();
         sprite.setPosition(position.x, position.y);
         sprite.setSize(size.x, size.y);
         sprite.setOrigin(origin.x, origin.y);
@@ -73,13 +75,15 @@ public abstract class Obstacle implements Drawable {
 
         position.add(origin);
         body = ColliderCreator.createBody(level.getWorld(), position, 0);
-        if (type != ObstacleType.NONE) {
+        if (type != ObstacleShape.NONE) {
             collider = ColliderCreator.createCollider(body, shape);
             collider.setUserData(this);
+            collider.setSensor(true);
         }
         body.setTransform(position, (float) Math.toRadians(angle));
         position.sub(origin);
 
+        //TODO remake this
         level.incrementScore();
         wasOnScreen = true;
     }
@@ -94,7 +98,7 @@ public abstract class Obstacle implements Drawable {
         if (!wasOnScreen && onScreen())
             appear();
 
-        if (!destroyed)
+        if (!destroyed && wasOnScreen)
             act(dt);
 
         if (shouldBeDestroyed())
@@ -122,7 +126,7 @@ public abstract class Obstacle implements Drawable {
     }
 
     public void removeFromScreen() {
-        if (type != ObstacleType.NONE) {
+        if (type != ObstacleShape.NONE) {
             body.destroyFixture(collider);
             shape.dispose();
         }
@@ -155,23 +159,27 @@ public abstract class Obstacle implements Drawable {
         return this;
     }
 
+    public Obstacle scaleSize(float scalar){
+        return setSize(size.x * scalar, size.y * scalar);
+    }
+
     public Obstacle setSize(float x, float y) {
         return setSize(new Vector2(x, y));
     }
 
     public Obstacle setOrigin(Vector2 origin) {
-        if (shape == null) {
+        if (shape != null) {
+            if (shape.getType() == Shape.Type.Polygon) {
 
-        } else if (shape.getClass() == PolygonShape.class) {
+                for (Vector2 v : vertices) {
+                    v.x += this.origin.x - origin.x;
+                    v.y += this.origin.y - origin.y;
+                }
+                ((PolygonShape) shape).set(vertices);
 
-            for (Vector2 v : vertices) {
-                v.x += this.origin.x - origin.x;
-                v.y += this.origin.y - origin.y;
+            } else if (shape.getType() == Shape.Type.Circle) {
+                ((CircleShape) shape).setPosition(size.cpy().scl(.5f).sub(origin));
             }
-            ((PolygonShape) shape).set(vertices);
-
-        } else if (shape.getClass() == CircleShape.class) {
-            ((CircleShape) shape).setPosition(new Vector2(origin.x, origin.y));
         }
 
         maxSize = origin.len() + size.len();
@@ -196,7 +204,9 @@ public abstract class Obstacle implements Drawable {
         return this;
     }
 
-    public Obstacle setShape(ObstacleType type) {
+    public Obstacle setShape(ObstacleShape type) {
+        if (shape != null)
+            shape.dispose();
         switch (type) {
             case NONE: {
                 shape = null;
@@ -214,7 +224,7 @@ public abstract class Obstacle implements Drawable {
             }
             case SQUARE: {
                 vertices = new Vector2[4];
-                vertices[0] = new Vector2(new Vector2(Vector2.Zero));
+                vertices[0] = new Vector2(Vector2.Zero.cpy());
                 vertices[1] = new Vector2(0, size.y);
                 vertices[2] = new Vector2(size.x, 0);
                 vertices[3] = new Vector2(size.x, size.y);
@@ -224,7 +234,7 @@ public abstract class Obstacle implements Drawable {
             }
             case CIRCLE: {
                 shape = new CircleShape();
-                shape.setRadius(size.x / 2);
+                shape.setRadius(size.y / 2);
                 break;
             }
         }
@@ -234,7 +244,7 @@ public abstract class Obstacle implements Drawable {
     }
 
     public Obstacle setSprite(Texture texture) {
-        sprite = new Sprite(texture);
+        sprite.setRegion(texture);
         return this;
     }
 
@@ -255,10 +265,6 @@ public abstract class Obstacle implements Drawable {
 
     public Vector2 getSize() {
         return size;
-    }
-
-    public MyAssetManager getManager() {
-        return level.getScreen().getGame().getManager();
     }
 
     public Body getBody() {

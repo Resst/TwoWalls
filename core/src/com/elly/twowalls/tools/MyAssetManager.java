@@ -2,10 +2,8 @@ package com.elly.twowalls.tools;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.elly.twowalls.tools.Assets.BackgroundAssets;
+import com.elly.twowalls.tools.Assets.ObstacleAssets;
 import com.elly.twowalls.tools.Assets.PlayerAssets;
-import com.elly.twowalls.tools.Assets.SquareAssets;
-import com.elly.twowalls.tools.Assets.TriangleAssets;
-import com.elly.twowalls.tools.Assets.UIAssets;
 
 public class MyAssetManager {
 
@@ -13,19 +11,14 @@ public class MyAssetManager {
 
     public final PlayerAssets player;
     public final BackgroundAssets background;
-    public final TriangleAssets staticTriangle;
-    public final SquareAssets square;
-    public final UIAssets ui;
-
+    public final ObstacleAssets obstacles;
 
     public MyAssetManager() {
         manager = new AssetManager();
 
         background = new BackgroundAssets(manager);
         player = new PlayerAssets(manager);
-        staticTriangle = new TriangleAssets(manager);
-        square = new SquareAssets(manager);
-        ui = new UIAssets(manager);
+        obstacles = new ObstacleAssets(manager);
 
         //finishing loading
         manager.finishLoading();
