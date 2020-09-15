@@ -12,6 +12,8 @@ import com.badlogic.gdx.utils.Array;
 import com.elly.twowalls.Player;
 import com.elly.twowalls.obstacles.Obstacle;
 import com.elly.twowalls.obstacles.tools.ObstacleCreator;
+import com.elly.twowalls.obstacles.tools.Pallete;
+import com.elly.twowalls.obstacles.tools.Presets;
 import com.elly.twowalls.screens.GameScreen;
 import com.elly.twowalls.tools.Assets.BackgroundAssets;
 import com.elly.twowalls.tools.BodyContactListener;
@@ -39,7 +41,8 @@ public abstract class Level implements Drawable {
     private OrthographicCamera camera;
 
     //presets of complex obstacles
-    protected Presets presets;
+    protected com.elly.twowalls.obstacles.tools.Presets presets;
+    protected com.elly.twowalls.obstacles.tools.Pallete pallete;
 
     private Texture backgroundTexture;
     private TextureRegion backgroundRegion;
@@ -69,6 +72,7 @@ public abstract class Level implements Drawable {
         world = new World(Vector2.Zero, true);
         world.setContactListener(new BodyContactListener());
         obstacles = new Array<>();
+        pallete = new com.elly.twowalls.obstacles.tools.Pallete();
         creator = new ObstacleCreator(this);
         presets = new Presets(this);
         initPrefs();
@@ -208,5 +212,9 @@ public abstract class Level implements Drawable {
 
     public ObstacleCreator getCreator() {
         return creator;
+    }
+
+    public Pallete getPallete() {
+        return pallete;
     }
 }

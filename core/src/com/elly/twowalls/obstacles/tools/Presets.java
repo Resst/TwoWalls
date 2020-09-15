@@ -1,5 +1,6 @@
-package com.elly.twowalls.levels;
+package com.elly.twowalls.obstacles.tools;
 
+import com.elly.twowalls.levels.Level;
 import com.elly.twowalls.obstacles.MovingObstacle;
 import com.elly.twowalls.obstacles.Obstacle;
 import com.elly.twowalls.obstacles.tools.ObstacleCreator;

@@ -1,5 +1,6 @@
 package com.elly.twowalls.obstacles;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -96,6 +97,12 @@ public class MovingObstacle extends Obstacle {
     }
 
     @Override
+    public Obstacle translate(float x, float y) {
+        super.translate(x, y);
+        return this;
+    }
+
+    @Override
     public MovingObstacle setSize(Vector2 size) {
         super.setSize(size);
         return this;
@@ -151,4 +158,9 @@ public class MovingObstacle extends Obstacle {
         return this;
     }
 
+    @Override
+    public MovingObstacle setColor(Color color) {
+        super.setColor(color);
+        return this;
+    }
 }

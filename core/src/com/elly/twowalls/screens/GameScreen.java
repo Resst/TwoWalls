@@ -1,6 +1,5 @@
 package com.elly.twowalls.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,11 +7,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.elly.twowalls.GameClass;
 import com.elly.twowalls.levels.Level;
 import com.elly.twowalls.levels.Level1;
+import com.elly.twowalls.levels.Level2;
+import com.elly.twowalls.levels.Level3;
+import com.elly.twowalls.levels.LevelInfinite;
 import com.elly.twowalls.tools.Constants;
 import com.elly.twowalls.tools.DrawQueue;
 
@@ -34,7 +35,7 @@ public class GameScreen implements Screen {
         viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, gamecam);
         gamecam.position.set(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2, 0);
         hud = new Hud(this);
-        setLevel(new Level1(this));
+        setLevel(new Level3(this));
     }
 
     @Override
@@ -59,6 +60,7 @@ public class GameScreen implements Screen {
             b2dr.render(level.getWorld(), gamecam.combined);
 
             hud.draw(game.getBatch());
+
         }
     }
 

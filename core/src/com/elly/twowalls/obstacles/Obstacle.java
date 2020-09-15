@@ -153,6 +153,13 @@ public class Obstacle implements Drawable {
         return this;
     }
 
+    public Obstacle translate(float x, float y){
+        position.x += x;
+        position.y += y;
+        return this;
+    }
+
+
     public Obstacle setSize(Vector2 size) {
         this.size = size;
         setShape(type);
@@ -255,6 +262,11 @@ public class Obstacle implements Drawable {
 
     public Obstacle setColor(float r, float g, float b) {
         color.set(r, g, b, 1);
+        return this;
+    }
+
+    public Obstacle setColor(Color color){
+        this.color.set(color);
         return this;
     }
 
