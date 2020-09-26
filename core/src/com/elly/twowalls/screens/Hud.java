@@ -24,7 +24,7 @@ public class Hud implements Drawable {
 
     public Hud(GameScreen screen){
         this.screen = screen;
-        viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, new OrthographicCamera());
+        viewport = new StretchViewport(1000, 1600, new OrthographicCamera());
         stage = new Stage(viewport, screen.getGame().getBatch());
         initFonts();
         initButtons();
@@ -41,16 +41,15 @@ public class Hud implements Drawable {
         scoreLabel.setText("Score: " + screen.getLevel().getScore());
         bestScoreLabel.setText("Best score: " + screen.getLevel().getBestScore());
 
-        scoreLabel.setPosition(0, Constants.WORLD_HEIGHT - scoreLabel.getHeight());
+        scoreLabel.setPosition(0, viewport.getWorldHeight() - scoreLabel.getHeight());
         bestScoreLabel.setPosition(0, scoreLabel.getY() - bestScoreLabel.getHeight());
-
     }
 
     private void initFonts(){
 
         font = new BitmapFont();
         font.setColor(Color.BLUE);
-        font.getData().setScale(2, 2);
+        font.getData().setScale(2);
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;

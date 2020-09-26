@@ -24,12 +24,10 @@ public class ObstacleCreator {
     private float lastY = Constants.WORLD_HEIGHT * 2;
 
     private Level level;
-    private Pallete pallete;
 
     public ObstacleCreator(Level level) {
         this.level = level;
         this.assets = level.getScreen().getGame().getManager().obstacles;
-        pallete = level.getPallete();
     }
 
     public MovingObstacle addCircle(float y, boolean onRightWall){
@@ -77,7 +75,7 @@ public class ObstacleCreator {
                 level, new Vector2(onRightWall ? level.rightBorder : level.leftBorder + level.borderSize, y),
                         new Vector2(onRightWall ? -standardSize : standardSize, standardSize), ObstacleShape.TRIANGLE
         ).setSprite(assets.getTexture(ObstacleAssets.TRIANGLE));//TODO remake this
-        triangle.setColor(pallete.getStaticTriangleColor());
+        triangle.setColor(level.getPallete().getStaticTriangleColor());
         initObstacle(triangle);
         return triangle;
     }
@@ -90,7 +88,7 @@ public class ObstacleCreator {
         return addTriangle(y, onRightWall).
                 addMotion(new HorizontalMove((level.rightBorder - level.leftBorder - level.borderSize - standardSize) * (onRightWall ? -1 : 1)
                         ,standardSpeed),0)
-                .setColor(pallete.getMovingTriangleColor());
+                .setColor(level.getPallete().getMovingTriangleColor());
     }
 
     public MovingObstacle movingTriangle(boolean onRightWall) {
@@ -100,7 +98,7 @@ public class ObstacleCreator {
     public MovingObstacle rotatingTriangle(float y, boolean onRightWall){
         return addTriangle(y, onRightWall).
                 addMotion(new Rotation(onRightWall ? -standardRotation : standardRotation, standardRotationSpeed), 0)
-                .setColor(pallete.getRotatingTriangleColor());
+                .setColor(level.getPallete().getRotatingTriangleColor());
     }
 
     public MovingObstacle rotatingTriangle(boolean onRightWall) {

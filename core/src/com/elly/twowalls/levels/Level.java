@@ -2,6 +2,7 @@ package com.elly.twowalls.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -41,8 +42,8 @@ public abstract class Level implements Drawable {
     private OrthographicCamera camera;
 
     //presets of complex obstacles
-    protected com.elly.twowalls.obstacles.tools.Presets presets;
-    protected com.elly.twowalls.obstacles.tools.Pallete pallete;
+    protected Presets presets;
+    protected Pallete pallete;
 
     private Texture backgroundTexture;
     private TextureRegion backgroundRegion;
@@ -72,9 +73,9 @@ public abstract class Level implements Drawable {
         world = new World(Vector2.Zero, true);
         world.setContactListener(new BodyContactListener());
         obstacles = new Array<>();
-        pallete = new com.elly.twowalls.obstacles.tools.Pallete();
         creator = new ObstacleCreator(this);
         presets = new Presets(this);
+        initPallete();
         initPrefs();
         initPlayer();
         createObstacles();
@@ -101,7 +102,7 @@ public abstract class Level implements Drawable {
 
         //for moving background
         if (!player.isDestroyed())
-            backgroundRegion.scroll(0, -player.speed / camera.viewportHeight * dt);
+            backgroundRegion.scroll(0, -player.speed / Constants.WORLD_HEIGHT * dt);
 
         //world step for checking collisions
         world.step(1, 5, 5);
@@ -142,6 +143,13 @@ public abstract class Level implements Drawable {
 
     private void initPlayer() {
         player = new Player(this, Constants.WORLD_HEIGHT, Constants.CELL_SIZE * 10);
+    }
+
+    protected void initPallete(){
+        pallete = new Pallete();
+        pallete.setStaticTriangleColor(Color.YELLOW);
+        pallete.setMovingTriangleColor(Color.RED);
+        pallete.setRotatingTriangleColor(Color.PURPLE);
     }
 
     private void removeAllObstacles() {
@@ -216,5 +224,9 @@ public abstract class Level implements Drawable {
 
     public Pallete getPallete() {
         return pallete;
+    }
+
+    public float getWidth(){
+        return rightBorder - leftBorder - borderSize;
     }
 }

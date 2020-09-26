@@ -8,8 +8,8 @@ import com.elly.twowalls.tools.Constants;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = (int)Constants.WORLD_WIDTH / 2;
-		config.height = (int)Constants.WORLD_HEIGHT / 2;
+		config.width = 500;
+		config.height = 800;
 		config.x = 0;
 		config.y = 0;
 		new LwjglApplication(new GameClass(), config);

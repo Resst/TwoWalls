@@ -12,7 +12,6 @@ public class Level1 extends Level {
 
     @Override
     public void createObstacles() {
-        pallete.setStaticTriangleColor(Color.YELLOW);
 
         creator.staticTriangle(true);
 

@@ -10,10 +10,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.elly.twowalls.GameClass;
 import com.elly.twowalls.levels.Level;
-import com.elly.twowalls.levels.Level1;
-import com.elly.twowalls.levels.Level2;
-import com.elly.twowalls.levels.Level3;
-import com.elly.twowalls.levels.LevelInfinite;
+import com.elly.twowalls.levels.Level6;
 import com.elly.twowalls.tools.Constants;
 import com.elly.twowalls.tools.DrawQueue;
 
@@ -35,7 +32,7 @@ public class GameScreen implements Screen {
         viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, gamecam);
         gamecam.position.set(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2, 0);
         hud = new Hud(this);
-        setLevel(new Level3(this));
+        setLevel(new Level6(this));
     }
 
     @Override

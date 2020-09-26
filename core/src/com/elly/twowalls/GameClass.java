@@ -3,6 +3,7 @@ package com.elly.twowalls;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.elly.twowalls.screens.GameScreen;
+import com.elly.twowalls.screens.LevelChooseScreen;
 import com.elly.twowalls.tools.MyAssetManager;
 
 
@@ -16,7 +17,7 @@ public class GameClass extends Game {
 	    batch = new SpriteBatch();
 	    manager = new MyAssetManager();
 		gameScreen = new GameScreen(this);
-		setScreen(gameScreen);
+		setScreen(new LevelChooseScreen(this));
 	}
 
 	@Override
@@ -40,4 +41,7 @@ public class GameClass extends Game {
 	    return manager;
     }
 
+	public GameScreen getGameScreen() {
+		return gameScreen;
+	}
 }
