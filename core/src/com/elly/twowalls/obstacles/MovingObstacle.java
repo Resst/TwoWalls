@@ -163,4 +163,10 @@ public class MovingObstacle extends Obstacle {
         super.setColor(color);
         return this;
     }
+
+    @Override
+    public MovingObstacle setAlpha(float alpha) {
+        super.setAlpha(alpha);
+        return this;
+    }
 }

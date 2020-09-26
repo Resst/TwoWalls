@@ -24,18 +24,23 @@ public class Presets {
 
         MovingObstacle[] res = new MovingObstacle[2];
 
-        res[0] = creator.movingTriangle(onRightWall)
-                .addMotion(new Rotation(-180, 230), 1)
+        res[0] = creator.addTriangle(onRightWall)
+                .setColor(level.getPallete().getMovingTriangleColor())
+                .addMotion(new HorizontalMove((level.getWidth()) * (onRightWall ? -1 : 1)
+                                ,Constants.CELL_SIZE * 6),0)
+                .addMotion(new Rotation(onRightWall ? -180 : 180, 230), 1)
                 .setOriginPercents(0, 0.5f);
+
 
         creator.space(-Obstacle.standardSize);
 
-        MovingObstacle t = creator.movingTriangle(onRightWall);
-        t
+        res[1] = creator.addTriangle(onRightWall)
+                .setColor(level.getPallete().getMovingTriangleColor())
+                .addMotion(new HorizontalMove((level.getWidth()) * (onRightWall ? -1 : 1)
+                        ,Constants.CELL_SIZE * 6),0)
                 .setAngle(180)
                 .setOriginPercents(0, 0.5f)
-                .addMotion(new Rotation(-180, 230),1);
-        res[1] = t;
+                .addMotion(new Rotation(onRightWall ? -180 : 180, 230),1);
         return res;
     }
 

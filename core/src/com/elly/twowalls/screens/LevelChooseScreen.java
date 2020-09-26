@@ -16,6 +16,7 @@ import com.elly.twowalls.levels.Level1;
 import com.elly.twowalls.levels.Level2;
 import com.elly.twowalls.levels.Level3;
 import com.elly.twowalls.levels.Level4;
+import com.elly.twowalls.levels.Level5;
 import com.elly.twowalls.levels.Level6;
 
 public class LevelChooseScreen implements Screen {
@@ -27,13 +28,14 @@ public class LevelChooseScreen implements Screen {
     private StretchViewport viewport;
 
     public LevelChooseScreen(final GameClass game) {
+        int levelsSize = 6;
         this.game = game;
         viewport = new StretchViewport(800, 1000, new OrthographicCamera());
         stage = new Stage(viewport, game.getBatch());
         table = new Table();
-        buttons = new TextButton[5];
+        buttons = new TextButton[levelsSize];
         Skin skin = new Skin(Gdx.files.internal("Textures/default/skin/uiskin.json"));
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < levelsSize; i++) {
             buttons[i] = new TextButton(String.valueOf(i + 1), skin);
             table.add(buttons[i]).width(200).height(200).pad(20);
             if (i % 2 == 1)
@@ -67,13 +69,19 @@ public class LevelChooseScreen implements Screen {
         buttons[4].addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(game.getGameScreen().setLevel(new Level5(game.getGameScreen())));
+            }
+        });
+        buttons[5].addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(game.getGameScreen().setLevel(new Level6(game.getGameScreen())));
             }
         });
 
         stage.addActor(table);
         table.debug();
-        table.setPosition(200, 300);
+        table.setPosition(200, levelsSize * 50 + 50);
         Gdx.input.setInputProcessor(stage);
 
     }

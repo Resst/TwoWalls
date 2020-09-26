@@ -270,6 +270,11 @@ public class Obstacle implements Drawable {
         return this;
     }
 
+    public Obstacle setAlpha(float alpha){
+        setColor(color.r, color.g, color.b, alpha);
+        return this;
+    }
+
 
     public Vector2 getPosition() {
         return position;

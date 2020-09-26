@@ -86,7 +86,7 @@ public class ObstacleCreator {
 
     public MovingObstacle movingTriangle(float y, boolean onRightWall){
         return addTriangle(y, onRightWall).
-                addMotion(new HorizontalMove((level.rightBorder - level.leftBorder - level.borderSize - standardSize) * (onRightWall ? -1 : 1)
+                addMotion(new HorizontalMove((level.getWidth() - Obstacle.standardSize) * (onRightWall ? -1 : 1)
                         ,standardSpeed),0)
                 .setColor(level.getPallete().getMovingTriangleColor());
     }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.elly.twowalls.GameClass;
 import com.elly.twowalls.levels.Level;
-import com.elly.twowalls.levels.Level6;
+import com.elly.twowalls.levels.Level5;
 import com.elly.twowalls.tools.Constants;
 import com.elly.twowalls.tools.DrawQueue;
 
@@ -20,6 +20,7 @@ public class GameScreen implements Screen {
     private OrthographicCamera gamecam;
     private Viewport viewport;
     private Level level;
+    private Level disposing;
     private Box2DDebugRenderer b2dr = new Box2DDebugRenderer();
     private DrawQueue drawQueue = new DrawQueue();
     private Hud hud;
@@ -32,7 +33,6 @@ public class GameScreen implements Screen {
         viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, gamecam);
         gamecam.position.set(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2, 0);
         hud = new Hud(this);
-        setLevel(new Level6(this));
     }
 
     @Override
@@ -76,7 +76,7 @@ public class GameScreen implements Screen {
             level.getPlayer().changeWall();
     }
 
-    public GameScreen setLevel(Level level){
+    public GameScreen setLevel(Level level) {
         this.level = level;
         return this;
     }
@@ -108,9 +108,10 @@ public class GameScreen implements Screen {
         drawQueue.clear();
     }
 
-    public void reset(){
+    public void reset() {
         level.reset();
     }
+
 
     public GameClass getGame() {
         return game;
@@ -120,11 +121,11 @@ public class GameScreen implements Screen {
         return gamecam;
     }
 
-    public DrawQueue getDrawQueue(){
+    public DrawQueue getDrawQueue() {
         return drawQueue;
     }
 
-    public Level getLevel(){
+    public Level getLevel() {
         return level;
     }
 }

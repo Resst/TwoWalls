@@ -1,192 +1,131 @@
 package com.elly.twowalls.levels;
 
 import com.elly.twowalls.obstacles.Obstacle;
-import com.elly.twowalls.obstacles.tools.motions.HorizontalMove;
 import com.elly.twowalls.screens.GameScreen;
 
 public class Level6 extends Level {
     public Level6(GameScreen screen) {
-        super(screen,false);
+        super(screen, false);
         getPlayer().speed *= .75f;
     }
 
     @Override
     public void createObstacles() {
-        creator.staticTriangle(false);
-        creator.staticTriangle(false);
+        presets.rhombus(true);
+        creator.spaceSeries(2);
+        presets.rhombus(false);
+        creator.spaceSeries(2);
+        presets.rhombus(true);
+        creator.spaceSeries(2);
+        presets.rhombus(false);
+        creator.spaceSeries(2);
+
+        creator.staticTriangle(true);
+        creator.space();
         creator.staticTriangle(false);
         creator.space();
-        creator.staticTriangle(true);
-        creator.staticTriangle(true);
-        creator.staticTriangle(true);
+
+        stTAndGhost(true);
+        creator.space();
+        stTAndGhost(false);
+        creator.space();
+        stTAndGhost(true);
+        creator.space();
+        stTAndGhost(true);
+        creator.space();
+        stTAndGhost(false);
+        creator.space();
+        stTAndGhost(true);
+        creator.space();
+        stTAndGhost(false);
+        creator.space();
+        stTAndGhost(false);
+        creator.space();
+        stTAndGhost(true);
+        creator.space();
+        stTAndGhost(true);
+
+        creator.spaceSeries(3);
+
+        stTAndGhost(true);
+        stTAndGhost(true);
+        stTAndGhost(true);
+        stTAndGhost(true);
+        stTAndGhost(false);
+        stTAndGhost(false);
+        stTAndGhost(false);
+        stTAndGhost(true);
+        stTAndGhost(true);
+        stTAndGhost(true);
+        stTAndGhost(false);
+        stTAndGhost(false);
+        stTAndGhost(false);
+        stTAndGhost(false);
+        stTAndGhost(true);
+        stTAndGhost(true);
+        stTAndGhost(true);
+        stTAndGhost(true);
+        stTAndGhost(false);
+
+        creator.spaceSeries(3);
+
+        presets.rhombus(true);
+        creator.spaceSeries(2);
+        presets.rhombus(false);
+        creator.spaceSeries(2);
+        presets.rhombus(true);
+        creator.spaceSeries(2);
+        presets.rhombus(false);
+        creator.spaceSeries(2);
+        presets.rhombus(true);
+
         creator.spaceSeries(5);
-        creator.movingTriangle(true);
-        creator.spaceSeries(3);
-        creator.movingTriangle(false);
-        creator.spaceSeries(3);
-        creator.movingTriangle(true);
-        creator.spaceSeries(3);
-        creator.movingTriangle(false);
 
-        creator.spaceSeries(2);
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.spaceSeries(2);
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.spaceSeries(2);
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.spaceSeries(2);
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
+        creator.staticTriangle(true).scaleSize(2);
+        creator.space();
+        creator.staticTriangle(false).scaleSize(2);
+        creator.space();
+        creator.staticTriangle(true).scaleSize(2);
+        creator.space();
+        creator.staticTriangle(true).scaleSize(2);
+        creator.space();
+        creator.staticTriangle(false).scaleSize(2);
+        creator.space();
+        creator.staticTriangle(false).scaleSize(2);
+        creator.space();
+        creator.staticTriangle(true).scaleSize(2);
+        creator.space();
+        creator.staticTriangle(true).scaleSize(2);
+        creator.space();
+        largeStTAndGhost(true);
+        largeStTAndGhost(true);
+        largeStTAndGhost(true);
+        largeStTAndGhost(false);
+        largeStTAndGhost(false);
+        largeStTAndGhost(true);
+        largeStTAndGhost(false);
 
-        creator.space();
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.space();
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.space();
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.space();
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.space();
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.space();
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.space();
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.space();
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
 
-        creator.staticTriangle(true);
-        creator.staticTriangle(true);
-        creator.staticTriangle(true);
-        creator.space();
-        creator.staticTriangle(false);
-        creator.staticTriangle(false);
-        creator.staticTriangle(false);
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
 
-        stTWall();
-        stTWall();
-        stTWall();
-        stTWall();
-        stTWall();
-
-        mvTWall();
-        mvTWall();
-        mvTWall();
-        mvTWall();
-        mvTWall();
-
-        creator.spaceSeries(3);
-        mvTCenter();
-        mvTCenter();
-        mvTCenter();
-        mvTCenter();
-        mvTCenter();
-        mvTCenter();
-        mvTCenter();
-        mvTCenter();
-        mvTCenter();
-        mvTCenter();
-
-        creator.spaceSeries(2);
-        creator.movingTriangle(true);
-        creator.spaceSeries(2);
-        creator.movingTriangle(false);
-        creator.spaceSeries(2);
-        creator.movingTriangle(true);
-        creator.spaceSeries(2);
-        creator.movingTriangle(false);
-        creator.spaceSeries(2);
-        creator.movingTriangle(true);
-        creator.spaceSeries(2);
-        creator.movingTriangle(false);
-        creator.spaceSeries(2);
-        creator.movingTriangle(true);
-        creator.spaceSeries(2);
-        creator.movingTriangle(false);
-
-        creator.space();
-        creator.space();
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.space();
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.space();
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.space();
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.space();
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.space();
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.space();
-        creator.movingTriangle(true);
-        creator.movingTriangle(true);
-        creator.space();
-        creator.movingTriangle(false);
-        creator.movingTriangle(false);
-        creator.space();
-
-        mvTCenter();
-        mvTCenter();
-        mvTCenter();
-        mvTCenter();
-        mvTCenter();
 
     }
 
-    //static triangle wall
-    void stTWall(){
-        creator.staticTriangle(true).translate(Obstacle.standardSize / 2, 0);
+    //static triangle on one wall and ghost on another
+    void stTAndGhost(boolean ghostOnRightWall){
+        creator.staticTriangle(!ghostOnRightWall);
+
         creator.space(-Obstacle.standardSize);
-        creator.staticTriangle(false).translate(-Obstacle.standardSize / 2, 0);
+
+        presets.ghost(ghostOnRightWall).setColor(pallete.getStaticTriangleColor()).setAlpha(.4f);
     }
 
-    //moving triangle wall
-    void mvTWall(){
-        creator.addTriangle(true)
-                .setColor(pallete.getMovingTriangleColor())
-                .addMotion(new HorizontalMove(Obstacle.standardSize / 2, Obstacle.standardSize));
-        creator.space(-Obstacle.standardSize);
-        creator.addTriangle(false)
-                .setColor(pallete.getMovingTriangleColor())
-                .addMotion(new HorizontalMove(-Obstacle.standardSize / 2, Obstacle.standardSize));
-    }
-    //moving triangles in the center
-    void mvTCenter(){
-        creator.addTriangle(true).
-                addMotion(new HorizontalMove(-getWidth() / 2, getWidth()))
-                .setColor(pallete.getMovingTriangleColor());
-        creator.space(-Obstacle.standardSize);
-        creator.addTriangle(false).
-                addMotion(new HorizontalMove(getWidth() / 2, getWidth()))
-                .setColor(pallete.getMovingTriangleColor());
-    }
+    // scaled x2 of stTAndGhost
+    void largeStTAndGhost(boolean ghostOnRightWall){
+        creator.staticTriangle(!ghostOnRightWall).scaleSize(2);
 
+        creator.space(-Obstacle.standardSize);
+
+        presets.ghost(ghostOnRightWall).setColor(pallete.getStaticTriangleColor()).setAlpha(.4f).scaleSize(2);
+        creator.space();
+    }
 }
