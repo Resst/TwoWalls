@@ -5,8 +5,8 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -46,7 +46,7 @@ public abstract class Level implements Drawable {
     protected Pallete pallete;
 
     private Texture backgroundTexture;
-    private TextureRegion backgroundRegion;
+    private Sprite backgroundSprite;
 
     public Level(GameScreen screen, boolean hasBorder) {
         //coordinates of borders
@@ -67,7 +67,7 @@ public abstract class Level implements Drawable {
         backgroundTexture = screen.getGame().getManager().background.getTexture(BackgroundAssets.BASE_TEXTURE);
 
         backgroundTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        backgroundRegion = new TextureRegion(backgroundTexture);
+        backgroundSprite = new Sprite(backgroundTexture);
 
         screen.getDrawQueue().add(this, 20);
         world = new World(Vector2.Zero, true);
@@ -101,8 +101,10 @@ public abstract class Level implements Drawable {
         }
 
         //for moving background
-        if (!player.isDestroyed())
-            backgroundRegion.scroll(0, -player.speed / Constants.WORLD_HEIGHT * dt);
+        if (!player.isDestroyed()){
+            backgroundSprite.scroll(0, -player.speed / Constants.WORLD_HEIGHT * dt);
+            backgroundSprite.setY(camera.position.y - camera.viewportHeight / 2);
+        }
 
         //world step for checking collisions
         world.step(1, 5, 5);
@@ -113,7 +115,7 @@ public abstract class Level implements Drawable {
 
     @Override
     public void draw(SpriteBatch batch) {
-        batch.draw(backgroundRegion, 0, camera.position.y - camera.viewportHeight / 2);
+        backgroundSprite.draw(batch);
     }
 
 
@@ -174,8 +176,10 @@ public abstract class Level implements Drawable {
     }
 
     public void resize(){
-        backgroundRegion.setRegion(0, (int) (camera.viewportHeight - camera.position.y) - 1,
-                ((int) camera.viewportWidth) + 1, ((int) camera.viewportHeight) + 2);
+        backgroundSprite.setRegion(0, (int) (camera.viewportHeight - camera.position.y) - 1,
+                backgroundTexture.getWidth(), ((int) camera.viewportHeight) + 2);
+        backgroundSprite.setSize(camera.viewportWidth + 1, camera.viewportHeight + 100);
+        backgroundSprite.setX(camera.position.x - camera.viewportWidth / 2);
 
     }
 
