@@ -64,7 +64,7 @@ public abstract class Level implements Drawable {
         camera = screen.getGamecam();
 
         //TODO Remake
-        backgroundTexture = screen.getGame().getManager().background.getTexture(BackgroundAssets.BASE_TEXTURE);
+        backgroundTexture = screen.getGame().getManager().background.getTexture(BackgroundAssets.FOREST_TEXTURE);
 
         backgroundTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         backgroundSprite = new Sprite(backgroundTexture);
@@ -176,10 +176,8 @@ public abstract class Level implements Drawable {
     }
 
     public void resize(){
-        backgroundSprite.setRegion(0, (int) (camera.viewportHeight - camera.position.y) - 1,
-                backgroundTexture.getWidth(), ((int) camera.viewportHeight) + 2);
-        backgroundSprite.setSize(camera.viewportWidth + 1, camera.viewportHeight + 100);
-        backgroundSprite.setX(camera.position.x - camera.viewportWidth / 2);
+        backgroundSprite.setSize(Constants.WORLD_WIDTH, camera.viewportHeight + 100);
+        backgroundSprite.setX(leftBorder + borderSize);
 
     }
 
@@ -230,7 +228,7 @@ public abstract class Level implements Drawable {
         return pallete;
     }
 
-    public float getWidth(){
+    public float getWidth() {
         return rightBorder - leftBorder - borderSize;
     }
 }

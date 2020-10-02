@@ -17,7 +17,8 @@ public class BackgroundAssets extends Assets {
     //All textures
     @Asset(type = Texture.class, folder = TEXTURES_FOLDER + FOLDER)
     public static final String
-            BASE_TEXTURE = "PlusesBG.png";
+            BASE_TEXTURE = "PlusesBG.png",
+            FOREST_TEXTURE = "forestBG.png";
 
 
     @Override

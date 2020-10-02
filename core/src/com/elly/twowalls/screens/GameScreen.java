@@ -46,7 +46,7 @@ public class GameScreen implements Screen {
         if (!paused) {
             update(delta);
 
-            Gdx.gl.glClearColor(9 / 256f, 102 / 256f, 28 / 256f, 1);
+            Gdx.gl.glClearColor(0,0,0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
             game.getBatch().setProjectionMatrix(gamecam.combined);
