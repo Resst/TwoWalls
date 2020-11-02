@@ -1,0 +1,51 @@
+{
+
+  com.badlogic.gdx.graphics.g2d.BitmapFont: { default-font: { file: default.fnt } },
+    com.badlogic.gdx.graphics.Color: {
+      black: { r: 0, g: 0, b: 0, a: 1 }
+    },
+    com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+      locked: {
+        up: locked,
+        down: lockedDown
+      },
+      unlocked: {
+        up: unlocked,
+        down: unlockedDown
+      },
+      completed: {
+        up: completed,
+        down: completedDown
+      },
+      back:{
+        up:back,
+        down: backDown
+      },
+      backLocked:{
+        up:backLocked,
+        down: backLockedDown
+      }
+    },
+    com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+      locked: {
+        up: locked,
+        down: lockedDown,
+        font: default-font
+      },
+      unlocked: {
+        up: unlocked,
+        down: unlockedDown,
+        font: default-font
+      },
+      completed: {
+        up: completed,
+        down: completedDown,
+        font: default-font
+      }
+  },
+  com.badlogic.gdx.graphics.g2d.Sprite: {
+    lockedConnection: lockedConnection,
+    unlockedConnection: unlockedConnection,
+    completedConnection: completedConnection,
+  }
+}

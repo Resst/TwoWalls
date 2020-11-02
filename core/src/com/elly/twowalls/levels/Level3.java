@@ -187,5 +187,8 @@ public class Level3 extends Level {
         creator.staticTriangle(true);
         creator.staticTriangle(false);
 
+        creator.end();
+
+
     }
 }

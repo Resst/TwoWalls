@@ -105,6 +105,7 @@ public class Level6 extends Level {
         largeStTAndGhost(true);
         largeStTAndGhost(false);
 
+        creator.end();
 
 
 

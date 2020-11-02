@@ -1,6 +1,6 @@
 package com.elly.twowalls.levels;
 
-import com.badlogic.gdx.graphics.Color;
+import com.elly.twowalls.obstacles.tools.motions.Rotation;
 import com.elly.twowalls.screens.GameScreen;
 
 public class Level1 extends Level {
@@ -53,6 +53,8 @@ public class Level1 extends Level {
         creator.staticTriangle(true);
         creator.spaceSeries(2);
         creator.staticTriangle(false);
+
+        creator.end();
 
 
     }

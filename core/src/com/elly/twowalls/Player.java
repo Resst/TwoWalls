@@ -88,8 +88,14 @@ public class Player implements Drawable {
         body.setTransform(bodyPosition, (position.x - minX) / (minX - maxX) * 6.28f);
 
         //moving camera
-        level.getScreen().getGamecam().translate(0, speed * dt);
-        level.getScreen().getGamecam().update();
+        moveCamera(dt);
+    }
+
+    private void moveCamera(float dt) {
+        if (!level.isEnded()) {
+            level.getScreen().getGamecam().translate(0, speed * dt);
+            level.getScreen().getGamecam().update();
+        }
     }
 
     public void changeWall() {
@@ -100,7 +106,7 @@ public class Player implements Drawable {
         setToDestroy = true;
     }
 
-    public void reset(){
+    public void reset() {
         position.set(minX, Constants.CELL_SIZE * 1.5f);
         bodyPosition.set(position.x + size / 2, position.y + size / 2);
         level.getScreen().getDrawQueue().get(layer).add(this);
@@ -125,7 +131,7 @@ public class Player implements Drawable {
         return destroyed;
     }
 
-    public void dispose(){
+    public void dispose() {
         body.destroyFixture(collider);
         level.getWorld().destroyBody(body);
         level = null;

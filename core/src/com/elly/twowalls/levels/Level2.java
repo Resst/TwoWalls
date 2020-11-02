@@ -107,5 +107,7 @@ public class Level2 extends Level {
         creator.staticTriangle(true);
         creator.space();
         creator.staticTriangle(false);
+
+        creator.end();
     }
 }

@@ -159,6 +159,8 @@ public class Level5 extends Level {
         mvTCenter();
         mvTCenter();
 
+        creator.end();
+
     }
 
     //static triangle wall

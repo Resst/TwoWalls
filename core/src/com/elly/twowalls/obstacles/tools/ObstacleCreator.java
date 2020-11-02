@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.elly.twowalls.levels.Level;
 import com.elly.twowalls.obstacles.MovingObstacle;
 import com.elly.twowalls.obstacles.Obstacle;
+import com.elly.twowalls.obstacles.Trigger;
 import com.elly.twowalls.obstacles.tools.motions.HorizontalMove;
 import com.elly.twowalls.obstacles.tools.motions.Rotation;
 import com.elly.twowalls.tools.Assets.ObstacleAssets;
@@ -103,6 +104,16 @@ public class ObstacleCreator {
 
     public MovingObstacle rotatingTriangle(boolean onRightWall) {
         return rotatingTriangle(lastY, onRightWall);
+    }
+
+    public void end(){
+        Trigger endTrigger = new Trigger(level, lastY + level.getScreen().getGamecam().viewportHeight) {
+            @Override
+            public void trigger() {
+                level.end();
+            }
+        };
+        level.addTrigger(endTrigger);
     }
 
     public void space(float spaceSize){

@@ -188,6 +188,9 @@ public class Level4 extends Level {
 
         creator.staticTriangle(false);
         creator.staticTriangle(false);
+
+        creator.end();
+
     }
 
     //static triangle wall

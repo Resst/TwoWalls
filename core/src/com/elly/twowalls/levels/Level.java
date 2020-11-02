@@ -11,7 +11,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.elly.twowalls.Player;
+import com.elly.twowalls.obstacles.MovingObstacle;
 import com.elly.twowalls.obstacles.Obstacle;
+import com.elly.twowalls.obstacles.Trigger;
 import com.elly.twowalls.obstacles.tools.ObstacleCreator;
 import com.elly.twowalls.obstacles.tools.Pallete;
 import com.elly.twowalls.obstacles.tools.Presets;
@@ -30,6 +32,7 @@ public abstract class Level implements Drawable {
     private GameScreen screen;
     private Player player;
     private Array<Obstacle> obstacles;
+    private Array<Trigger> triggers;
     private World world;
 
     protected ObstacleCreator creator;
@@ -38,6 +41,7 @@ public abstract class Level implements Drawable {
     private Preferences prefs;
 
     private boolean gameOver = false;
+    private boolean ended = false;
 
     private OrthographicCamera camera;
 
@@ -73,16 +77,26 @@ public abstract class Level implements Drawable {
         world = new World(Vector2.Zero, true);
         world.setContactListener(new BodyContactListener());
         obstacles = new Array<>();
+        triggers = new Array<>();
         creator = new ObstacleCreator(this);
         presets = new Presets(this);
         initPallete();
         initPrefs();
         initPlayer();
-        createObstacles();
+        createObstaclesInThread();
 
     }
 
     public abstract void createObstacles();
+
+    private void createObstaclesInThread(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                createObstacles();
+            }
+        }).start();
+    }
 
     public void update(float dt) {
 
@@ -92,6 +106,12 @@ public abstract class Level implements Drawable {
             gameOver = false;
         }
 
+        //if level completed and player is out of screen we leave
+        if (ended && player.getPosition().y >= camera.position.y + camera.viewportHeight / 2){
+            screen.end();
+            return;
+        }
+
         //Updating player
         player.update(dt);
 
@@ -99,17 +119,17 @@ public abstract class Level implements Drawable {
         for (Obstacle o : obstacles) {
             o.update(dt);
         }
+        for (Trigger t : triggers)
+            t.update();
 
         //for moving background
-        if (!player.isDestroyed()){
+        if (!player.isDestroyed() && !ended){
             backgroundSprite.scroll(0, -player.speed / Constants.WORLD_HEIGHT * dt);
             backgroundSprite.setY(camera.position.y - camera.viewportHeight / 2);
         }
 
         //world step for checking collisions
         world.step(1, 5, 5);
-
-
     }
 
 
@@ -118,6 +138,17 @@ public abstract class Level implements Drawable {
         backgroundSprite.draw(batch);
     }
 
+    public void end(){
+        ended = true;
+    }
+
+    public void addTrigger(Trigger trigger){
+        triggers.add(trigger);
+    }
+
+    public void removeTrigger(Trigger trigger){
+        triggers.removeValue(trigger, true);
+    }
 
     public void addObstacle(Obstacle obstacle) {
         obstacles.add(obstacle);
@@ -171,7 +202,7 @@ public abstract class Level implements Drawable {
         player.reset();
         creator.reset();
         camera.position.set(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2, 0);
-        createObstacles();
+        createObstaclesInThread();
         score = 0;
     }
 
@@ -189,11 +220,16 @@ public abstract class Level implements Drawable {
         player.dispose();
         removeAllObstacles();
         world.dispose();
+        screen.getDrawQueue().clear();
     }
 
     private void setBestScore(int newScore) {
         prefs.putInteger(Constants.BEST_SCORE_PREFERENCE, newScore);
         prefs.flush();
+    }
+
+    public boolean isEnded() {
+        return ended;
     }
 
     public GameScreen getScreen() {

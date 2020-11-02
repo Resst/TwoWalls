@@ -1,0 +1,96 @@
+menu.png
+size: 2048, 512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+back
+  rotate: false
+  xy: 0, 0
+  size: 512, 256
+  orig: 512, 256
+  offset: 0, 0
+  index: -1
+backDown
+  rotate: false
+  xy: 512, 0
+  size: 512, 256
+  orig: 512, 256
+  offset: 0, 0
+  index: -1
+backLocked
+  rotate: false
+  xy: 1024, 0
+  size: 512, 256
+  orig: 512, 256
+  offset: 0, 0
+  index: -1
+backLockedDown
+  rotate: false
+  xy: 1536, 0
+  size: 512, 256
+  orig: 512, 256
+  offset: 0, 0
+  index: -1
+completed
+  rotate: false
+  xy: 0, 256
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+completedConnection
+  rotate: false
+  xy: 256, 256
+  size: 28, 256
+  orig: 28, 256
+  offset: 0, 0
+  index: -1
+completedDown
+  rotate: false
+  xy: 284, 256
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+locked
+  rotate: false
+  xy: 540, 256
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+lockedConnection
+  rotate: false
+  xy: 796, 256
+  size: 25, 256
+  orig: 25, 256
+  offset: 0, 0
+  index: -1
+lockedDown
+  rotate: false
+  xy: 821, 256
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+unlocked
+  rotate: false
+  xy: 1077, 256
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+unlockedConnection
+  rotate: false
+  xy: 1333, 256
+  size: 25, 256
+  orig: 25, 256
+  offset: 0, 0
+  index: -1
+unlockedDown
+  rotate: false
+  xy: 1358, 256
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
